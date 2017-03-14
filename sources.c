@@ -18,9 +18,6 @@ char * getName(){
 
   char mesg[] = "Enter your character's name: ";
   int row, col;
-
-  initscr();
-  signal (SIGWINCH, NULL);
   getmaxyx(stdscr, row, col);
   mvprintw(row/2, (col-strlen(mesg))/2, "%s", mesg);
   getstr(char_name);
@@ -29,31 +26,53 @@ char * getName(){
   refresh();
   getchar();
   clear();
-  endwin();
+  refresh();
   return char_name;
 }
 
 SPECIES getSpecies(){
-  printf("There are four playable races in Kagarria.\n");
-  printf("Humans: Common but verstile. Start with +2 in all stats - 0\n");
-  printf("Storm Elves: From the snowy mountains. Start with +3 intel, ");
-  printf("+2 charm and +1 strength - 1\n");
-  printf("Forest Elves: From the deep dark forests. Start with +4 strength ");
-  printf(" and +3 intel - 2\n");
-  printf("Furkin: The animal races created for war. Start with +5 strength ");
-  printf("and +2 charm. - 3\n");
+  // printf("There are four playable races in Kagarria.\n");
+  // printf("Humans: Common but verstile. Start with +2 in all stats - 0\n");
+  // printf("Storm Elves: From the snowy mountains. Start with +3 intel, ");
+  // printf("+2 charm and +1 strength - 1\n");
+  // printf("Forest Elves: From the deep dark forests. Start with +4 strength ");
+  // printf(" and +3 intel - 2\n");
+  // printf("Furkin: The animal races created for war. Start with +5 strength ");
+  // printf("and +2 charm. - 3\n");
+
+  char intro[] = "There are four playable races in Kagarria.";
+
+  int row,col;
+  // initscr();
+  getmaxyx(stdscr, row, col);
+
+  mvprintw(0,0,"%s",intro);
+  mvprintw(3,0,"%s","Humans: Common but verstile. Start with +2 in all stats - 0\n");
+  mvprintw(5,0,"%s","Storm Elves: From the snowy mountains. Start with +3 intel, ");
+  mvprintw(6,0,"%s","+2 charm and +1 strength - 1\n");
+  mvprintw(8,0,"%s","Forest Elves: From the deep dark forests. Start with +4 strength ");
+  mvprintw(9,0,"%s"," and +3 intel - 2\n");
+  mvprintw(11,0,"%s","Furkin: The animal races created for war. Start with +5 strength ");
+  mvprintw(12,0,"%s","and +2 charm. - 3\n");
 
   SPECIES species = 0;
-  char number[10];
-  fgets(number, 10, stdin);
+  char number[1];
+  // fgets(number, 10, stdin);
+  mvprintw(14,0,"Chose a species for your character by entering the number next to them.");
+  refresh();
+  number[0] = getchar();
   // int i = atoi(number);
   if (number[0] == '0' || number[0] == '1' || number[0] == '2' || number[0] == '3'){
-    species = number[0];
+    species =  number[0] - '0'; // This is here as number is read in as ASCII
   }
   else{
-    printf("Incorrect input. Please enter a number between 0-3\n");
+    mvprintw(16,0,"Incorrect input. Please enter a number between 0-3\n");
+    refresh();
     species = getSpecies();
   }
+  // printf("Species number in function is %d\n", species);
+  clear();
+  refresh();
   return species;
 }
 
@@ -72,7 +91,6 @@ struct char_details getPC(){
   this.intel = 1;
   this.charm = 1;
 
-  printf("Species number: %d\n", this.species);
   printf("Choose which skill you would like to level up:\n");
   printf("Strength: 0   Intel: 1    Charm: 2\n");
 
@@ -110,7 +128,7 @@ struct char_details getPC(){
 
 void displayStats(struct char_details character){
   int row,col;
-  initscr();
+  // initscr();
   getmaxyx(stdscr, row, col);
   mvprintw((row/2)-3,(col-strlen(character.name))/2,"Character Name: %s",character.name);
   mvprintw((row/2)-2,(col-strlen(character.name))/2,"Species: %s", speciesFetch(character.species));
@@ -123,7 +141,7 @@ void displayStats(struct char_details character){
 
   refresh();
   getchar();
-  endwin();
+  // endwin();
 }
 
 char* speciesFetch(SPECIES species_enum){

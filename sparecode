@@ -1,0 +1,33 @@
+if (strtol(number, (char**)NULL, 5))
+{
+  // printf("passed\n");
+  choice = atoi(number);
+  if (choice == 0 || choice == 1 || choice == 2){
+    if (choice == 0){
+      this.strength++;
+    }
+    else if (number[0] == 1){
+      this.intel++;
+    }
+    else if (choice == 2){
+      this.charm++;
+    }
+    free_points--;
+    printf("Your choice was %d\n", choice);
+
+  }
+  else{
+    printf("Please enter a number between 0-2\n");
+    printf("You entered %d\n", choice);
+  }
+}
+else{
+  printf("Bad input. Please enter 0-2\n");
+}
+
+mvprintw((row/2)-2,(col-strlen(character.name))/2,"Character Name: %s",character.name);
+mvprintw(row/2)-1,(col-strlen(character.name))/2,"Max HP: %d",character.max_hp);
+// mvprintw(row/2),(col-strlen(character.name))/2,"Current_hp: %d",character.current_hp);
+// mvprintw(row/2)+1,(col-strlen(character.name))/2,"Strength: %d",character.strength);
+// mvprintw(row/2)+2,(col-strlen(character.name))/2,"Intel: %d",character.intel);
+// mvprintw(row/2)+3,(col-strlen(character.name))/2,"Charm: %d",character.charm);
