@@ -10,8 +10,10 @@ void introduction();
 char * getName();
 SPECIES getSpecies();
 struct char_details getPC();
+struct char_details allocatePoints(struct char_details this);
 
 void displayStats(struct char_details character);
+void screenStart();
 char* speciesFetch(SPECIES species_enum);
 
 struct char_details {
